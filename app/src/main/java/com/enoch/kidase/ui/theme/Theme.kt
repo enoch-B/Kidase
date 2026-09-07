@@ -1,4 +1,4 @@
-package com.example.kidase.ui.theme
+package com.enoch.kidase.ui.theme
 
 import android.app.Activity
 import android.os.Build

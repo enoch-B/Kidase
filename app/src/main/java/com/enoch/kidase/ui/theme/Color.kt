@@ -1,4 +1,4 @@
-package com.example.kidase.ui.theme
+package com.enoch.kidase.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.example.kidase.ui.theme
+package com.enoch.kidase.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -6,10 +6,17 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
+import androidx.compose.ui.text.font.Font
+import com.enoch.kidase.R
+
+val NotoSansEthiopic = FontFamily(
+    Font(R.font.noto_sans_ethiopic, FontWeight.Normal)
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = NotoSansEthiopic,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,

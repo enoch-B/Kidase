@@ -1,14 +1,20 @@
 [
   {
     "id": "kirie_eleison",
-    "displayText": "ኪርያላይሶን",
-    "group": "qidasie",
+    "displayText": "ቡበ",
+    "group": "ቅዳሴ",
     "audioFile": "audio/kirie_eleison.opus"
   },
   {
     "id": "wondimey",
-    "displayText": "ወንድሜ",
-    "group": "kidan",
+    "displayText": "ሰጠጠ",
+    "group": "ቅዳሴ",
     "audioFile": "audio/wondimey.opus"
+  },
+  {
+    "id": "haleluya",
+    "displayText": "ሃሌሉያ",
+    "group": "ቅዳሴ",
+    "audioFile": "audio/haleluya.opus"
   }
 ]

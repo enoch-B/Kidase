@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.enoch.kidase.ui.MainScreen
+import com.enoch.kidase.ui.AppNav
 import com.enoch.kidase.ui.theme.KidaseTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             KidaseTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreen(
+                    AppNav(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

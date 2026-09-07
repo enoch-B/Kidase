@@ -31,10 +31,10 @@ object ManifestLoader {
         return entries
     }
 
-    fun groupClips(clips: List<ClipEntry>): Map<String, Map<Char, List<ClipEntry>>> {
+    fun groupClips(clips: List<ClipEntry>): Map<String, List<Pair<Char, List<ClipEntry>>>> {
         return clips.groupBy { it.group }
             .mapValues { (_, groupList) ->
-                groupList.groupBy { it.displayText.firstOrNull() ?: ' ' }
+                FidelSort.groupAndSortByFidel(groupList)
             }
     }
 }

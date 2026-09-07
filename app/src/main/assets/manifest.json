@@ -1,0 +1,14 @@
+[
+  {
+    "id": "kirie_eleison",
+    "displayText": "ኪርያላይሶን",
+    "group": "qidasie",
+    "audioFile": "audio/kirie_eleison.opus"
+  },
+  {
+    "id": "wondimey",
+    "displayText": "ወንድሜ",
+    "group": "kidan",
+    "audioFile": "audio/wondimey.opus"
+  }
+]

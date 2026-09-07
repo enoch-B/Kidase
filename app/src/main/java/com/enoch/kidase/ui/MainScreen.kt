@@ -1,5 +1,7 @@
 package com.enoch.kidase.ui
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,9 +15,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.enoch.kidase.data.ManifestLoader
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+fun MainScreen(modifier: Modifier = Modifier, onNavigateToGroup: (String) -> Unit = {}) {
     val context = LocalContext.current
     val groups = remember {
         val clips = ManifestLoader.loadManifest(context)
@@ -38,6 +45,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -48,13 +56,15 @@ fun MainScreen(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .size(120.dp)
                 .clip(CircleShape)
-                .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape),
+                .background(MaterialTheme.colorScheme.surface)
+                .border(2.dp, MaterialTheme.colorScheme.secondary, CircleShape),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = "IMG",
-                color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.titleLarge
+            Icon(
+                imageVector = Icons.Outlined.Favorite,
+                contentDescription = "IMG",
+                tint = MaterialTheme.colorScheme.tertiary,
+                modifier = Modifier.size(48.dp)
             )
         }
         
@@ -65,19 +75,29 @@ fun MainScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(groups) { group ->
-                GroupCard(groupName = group)
+            itemsIndexed(groups) { index, group ->
+                GroupCard(groupName = group, isHighlighted = index == 0, onClick = { onNavigateToGroup(group) })
             }
         }
     }
 }
 
 @Composable
-fun GroupCard(groupName: String) {
+fun GroupCard(groupName: String, isHighlighted: Boolean = false, onClick: () -> Unit = {}) {
+    val containerColor = if (isHighlighted) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface
+    val contentColor = if (isHighlighted) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
+    val borderColor = if (isHighlighted) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline
+    val chevronTint = if (isHighlighted) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { /* TODO: navigation comes in the next task */ },
+            .clickable(onClick = onClick),
+        colors = CardDefaults.cardColors(
+            containerColor = containerColor,
+            contentColor = contentColor
+        ),
+        border = BorderStroke(1.dp, borderColor)
     ) {
         Row(
             modifier = Modifier
@@ -90,9 +110,11 @@ fun GroupCard(groupName: String) {
                 text = groupName,
                 style = MaterialTheme.typography.bodyLarge
             )
-            Text(
-                text = ">",
-                style = MaterialTheme.typography.bodyLarge
+            Icon(
+                imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                contentDescription = "Navigate",
+                modifier = Modifier.size(20.dp),
+                tint = chevronTint
             )
         }
     }

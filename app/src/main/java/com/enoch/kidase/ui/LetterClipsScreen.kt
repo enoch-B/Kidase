@@ -55,12 +55,6 @@ fun LetterClipsScreen(
     }
 
     val currentClipId by audioViewModel.currentClipId.collectAsState()
-    val isPlaying by audioViewModel.isPlaying.collectAsState()
-    val progress by audioViewModel.playbackProgress.collectAsState()
-
-    val currentClip = remember(currentClipId, clipsForLetter) {
-        clipsForLetter.find { it.id == currentClipId }
-    }
 
     Scaffold(
         topBar = {
@@ -77,52 +71,6 @@ fun LetterClipsScreen(
                     }
                 }
             )
-        },
-        bottomBar = {
-            if (currentClipId != null && currentClip != null) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(MaterialTheme.colorScheme.primary)
-                ) {
-                    LinearProgressIndicator(
-                        progress = { progress },
-                        modifier = Modifier.fillMaxWidth().height(2.dp),
-                        color = MaterialTheme.colorScheme.secondary,
-                        trackColor = MaterialTheme.colorScheme.primary
-                    )
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(
-                            text = currentClip.displayText,
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            modifier = Modifier.weight(1f)
-                        )
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            IconButton(onClick = { audioViewModel.togglePlayPause() }) {
-                                Icon(
-                                    imageVector = if (isPlaying) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-                                    contentDescription = "Play/Pause",
-                                    tint = MaterialTheme.colorScheme.secondary
-                                )
-                            }
-                            IconButton(onClick = { audioViewModel.replayCurrent() }) {
-                                Icon(
-                                    imageVector = Icons.Filled.Replay,
-                                    contentDescription = "Replay",
-                                    tint = MaterialTheme.colorScheme.secondary
-                                )
-                            }
-                        }
-                    }
-                }
-            }
         }
     ) { innerPadding ->
         LazyColumn(
